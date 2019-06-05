@@ -21,6 +21,9 @@ pipeline {
                     withSonarQubeEnv('SvenRickSonarqube'){
                         sh "${scanner}/bin/sonar-scanner"
                     }
+                    sh 'echo this is needed because of slowness of seclab'
+                    def time = '11'
+                    sleep time.toInteger()
                 }
             }
         }
