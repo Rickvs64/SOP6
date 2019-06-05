@@ -15,11 +15,11 @@ pipeline {
             }
         }
         stage('SonarQube analysis'){
-            script{
-                scanner = tool 'RSScanner';
-            }
-            withSonarQubeEnv('SvenRickSonarqube'){
-                sh "${scanner}/bin/sonar-scanner"
+            steps {
+                def scanner = tool 'RSScanner';
+                withSonarQubeEnv('SvenRickSonarqube'){
+                    sh "${scanner}/bin/sonar-scanner"
+                }
             }
         }
         stage("Quality Gate 1"){
