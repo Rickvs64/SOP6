@@ -16,9 +16,11 @@ pipeline {
         }
         stage('SonarQube analysis'){
             steps {
-                def scanner = tool 'RSScanner';
-                withSonarQubeEnv('SvenRickSonarqube'){
-                    sh "${scanner}/bin/sonar-scanner"
+                script { 
+                    def scanner = tool 'RSScanner';    
+                    withSonarQubeEnv('SvenRickSonarqube'){
+                        sh "${scanner}/bin/sonar-scanner"
+                    }
                 }
             }
         }
