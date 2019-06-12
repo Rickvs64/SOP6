@@ -8,7 +8,7 @@ pipeline {
         }
         stage('test') {
             steps {
-                sh 'vendor/bin/phpunit'
+                sh 'php vendor/bin/phpunit'
             }
         }
         stage('SonarQube analysis'){
