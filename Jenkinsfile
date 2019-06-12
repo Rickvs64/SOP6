@@ -6,11 +6,6 @@ pipeline {
                 sh "docker build -t laravel-app:B${BUILD_NUMBER} -f Dockerfile ."
             }
         }
-        stage('test') {
-            steps {
-                sh 'vendor/bin/phpunit'
-            }
-        }
         stage('SonarQube analysis'){
             steps {
                 script { 
