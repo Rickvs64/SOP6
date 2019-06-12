@@ -24,5 +24,14 @@ pipeline {
                 waitForQualityGate abortPipeline: true
             }
         }
+        stage("Deploy") {
+          steps {
+             sh "rm -rf storage/logs/*" // Remove sonarqube files
+             sh "rm -rf storage/framework/views/*"
+             sh "rm -rf storage/framework/sessions/*"
+             sh "chmod -R 777 storage" // Give full access to storage folder
+             sshPublisher(publishers: [sshPublisherDesc(configName: 'SvenRickSOP', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'docker-compose -f /docker/docker-compose.yml up -d --force-recreate', execTimeout: 12000000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+          }
+       }
     }
 }
